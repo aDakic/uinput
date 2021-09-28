@@ -20,7 +20,7 @@ TEST(virtual_device, constructor)
 
     if(!dev.create_device())
         EXPECT_TRUE(false);
-
+    sleep(4);
     constexpr std::array<virtual_event, 2> press  {{
             {0, 0, event_codes::key, key_codes::space, 1},
             {0, 0, event_codes::sync, sync_codes::report, 0} 

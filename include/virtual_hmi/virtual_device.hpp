@@ -4,8 +4,8 @@
 
 struct virtual_event
 {
-    std::int64_t sec;
-    std::int64_t usec;
+    std::uint64_t sec;
+    std::uint64_t usec;
     std::uint16_t type;
     std::uint16_t code;
     std::int32_t value;
