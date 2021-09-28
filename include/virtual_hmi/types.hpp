@@ -16,13 +16,16 @@ namespace ui_bits {
     inline constexpr int dev_destroy = UI_DEV_DESTROY;
     inline constexpr int dev_setup = UI_DEV_SETUP;
     inline constexpr int set_events = UI_SET_EVBIT;
+    inline constexpr int set_keys = UI_SET_KEYBIT;
+    inline constexpr int set_rels = UI_SET_RELBIT;
+    inline constexpr int set_abss = UI_SET_ABSBIT;
 }
 
-namespace event_bits {
-    inline constexpr int sync_codes = EV_SYN;
-    inline constexpr int key_codes = EV_KEY;
-    inline constexpr int rel_codes = EV_REL;
-    inline constexpr int abs_codes = EV_ABS;
+namespace event_codes {
+    inline constexpr int sync = EV_SYN;
+    inline constexpr int key = EV_KEY;
+    inline constexpr int rel = EV_REL;
+    inline constexpr int abs = EV_ABS;
 }
 
 namespace ui_setup {

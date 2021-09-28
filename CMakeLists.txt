@@ -29,6 +29,13 @@ target_include_directories(
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
+if(${PROJECT_NAME}_ENABLE_TRACE_LOGGING)
+    set(FMT_INSTALL ON)
+    set(CMAKE_POSITION_INDEPENDENT_CODE true)
+    CPMAddPackage("gh:fmtlib/fmt#7.1.3")
+    target_link_libraries(${PROJECT_NAME} fmt)
+endif()
+
 if(${PROJECT_NAME}_ENABLE_UNIT_TESTING)
         add_subdirectory(tests)
 endif()

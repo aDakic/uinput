@@ -9,6 +9,7 @@
 #include <iostream>
 
 #include "types.hpp"
+#include "logger.h"
 
 class file_descriptor final
 {
@@ -18,6 +19,8 @@ public:
     file_descriptor(const std::string_view& name, Flags... flags)
     {
         static_assert(std::conjunction_v<std::is_integral<Flags>...>);
+
+        log_info(m_file_descriptor_tag, "{}\n", __FUNCTION__);
 
         m_fd = open(name.data(), (flags | ...));
         if (-1 == m_fd)
@@ -39,12 +42,16 @@ public:
     template <typename T, size_t N>
     [[nodiscard]] bool write(std::array<T, N> buffer) noexcept
     {
+        log_info(m_file_descriptor_tag, "{}\n", __FUNCTION__);
+
         if ( 0 >= ::write(m_fd, std::addressof(buffer), N * sizeof(T)))
         {
+            log_error(m_file_descriptor_tag, "Failed to write buffer with size: {}\n", N);
             return false;
         }
         else
         {
+            log_info(m_file_descriptor_tag, "write ended successfully\n");
             return true;
         }
     }
@@ -56,10 +63,12 @@ public:
 
         if ( 0 >= ::read(m_fd, std::addressof(buffer), N * sizeof(T)))
         {
+            log_error(m_file_descriptor_tag, "Failed to read buffer with size: {}\n", N);
             return std::nullopt;
         }
         else
         {
+            log_info(m_file_descriptor_tag, "read ended successfully\n");
             return { buffer };
         }
     }
@@ -69,14 +78,17 @@ public:
     {
         if (-1 == ::ioctl(m_fd, request, std::forward<Args>(args)...))
         {
+            log_error(m_file_descriptor_tag, "ioctl failed for request: {}\n", request);
             return false;
         }
         else
         {
+            log_info(m_file_descriptor_tag, "ioctl ended successfully\n");
             return true;
         }
     }
 
 private:
+    static constexpr const char *m_file_descriptor_tag = "file_descriptor";
     int m_fd {-1};
 };
