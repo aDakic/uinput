@@ -16,3 +16,4 @@ SpaceBeforeInheritanceColon: 'true'
 SpaceBeforeRangeBasedForLoopColon: 'true'
 SpaceInEmptyBlock: true
 Standard: 'Latest'
+IndentWidth: 4 

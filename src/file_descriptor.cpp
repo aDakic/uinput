@@ -1,10 +1,8 @@
 #include "virtual_hmi/file_descriptor.hpp"
+
 #include <utility>
 
-file_descriptor::file_descriptor(file_descriptor&& fd) noexcept
-{
-    *this = std::move(fd);
-}
+file_descriptor::file_descriptor(file_descriptor&& fd) noexcept { *this = std::move(fd); }
 
 file_descriptor& file_descriptor::operator=(file_descriptor&& fd) noexcept
 {
@@ -22,10 +20,6 @@ file_descriptor::~file_descriptor() noexcept
     {
         ::close(m_fd);
     }
-
 }
 
-file_descriptor::operator bool() const noexcept
-{
-    return -1 != m_fd;
-}
+file_descriptor::operator bool() const noexcept { return -1 != m_fd; }
