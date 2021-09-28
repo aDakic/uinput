@@ -15,10 +15,14 @@ virtual_device::virtual_device(const std::string_view& name, std::uint16_t vendo
     std::strncpy(m_uinput_setup.name, name.data(), ui_setup::max_name_size);
 }
 
-virtual_device::~virtual_device()
+virtual_device::~virtual_device() noexcept
 {
     log_info(m_virtual_device_tag, "{}\n", __FUNCTION__);
-    bool ret = m_fd.ioctl(ui_bits::dev_destroy);
+
+    if (!m_fd.ioctl(ui_bits::dev_destroy))
+    {
+        log_warning(m_virtual_device_tag, "The virtual device is not destroyed properly.\n");
+    }
 }
 
 bool virtual_device::create_device() noexcept
