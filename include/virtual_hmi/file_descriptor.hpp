@@ -14,10 +14,10 @@ class file_descriptor final
 {
 public:
 
-    template <typename... Integral>
-    file_descriptor(const std::string_view& name, Integral... flags)
+    template <typename... Flags>
+    file_descriptor(const std::string_view& name, Flags... flags)
     {
-        static_assert(std::conjunction_v<std::is_integral<Integral>...>);
+        static_assert(std::conjunction_v<std::is_integral<Flags>...>);
 
         m_fd = open(name.data(), (flags | ...));
         if (-1 == m_fd)
@@ -67,7 +67,7 @@ public:
     template <typename... Args>
     [[nodiscard]] bool ioctl(unsigned long request, Args&&... args) noexcept
     {
-        if (-1 == ioctl(m_fd, request, std::forward<Args>(args)...))
+        if (-1 == ::ioctl(m_fd, request, std::forward<Args>(args)...))
         {
             return false;
         }

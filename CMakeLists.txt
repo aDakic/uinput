@@ -5,10 +5,12 @@ project(virtual_hmi
         LANGUAGES CXX)
 
 set(sources
-    src/file_descriptor.cpp)
+    src/file_descriptor.cpp
+    src/virtual_device.cpp)
 
 set(headers
-    include/${PROJECT_NAME}/file_descriptor.hpp)
+    include/${PROJECT_NAME}/file_descriptor.hpp
+    include/${PROJECT_NAME}/virtual_device.hpp)
 
 add_library(${PROJECT_NAME} SHARED ${headers} ${sources})
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
