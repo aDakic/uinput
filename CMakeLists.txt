@@ -4,6 +4,10 @@ project(virtual_hmi
         VERSION 1.0.0
         LANGUAGES CXX)
 
+include(cmake/StandardSettings.cmake)
+include(cmake/Tools.cmake)
+include(cmake/CPM.cmake)
+
 set(sources
     src/file_descriptor.cpp
     src/virtual_device.cpp)
@@ -24,8 +28,6 @@ target_include_directories(
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src)
-
-option(${PROJECT_NAME}_ENABLE_UNIT_TESTING "Enable unit tests for the projects (from the `test` subfolder)." ON)
 
 if(${PROJECT_NAME}_ENABLE_UNIT_TESTING)
         add_subdirectory(tests)
