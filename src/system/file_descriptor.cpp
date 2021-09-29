@@ -2,10 +2,16 @@
 
 #include <utility>
 
-file_descriptor::file_descriptor(file_descriptor&& fd) noexcept { *this = std::move(fd); }
+file_descriptor::file_descriptor(file_descriptor&& fd) noexcept
+{
+    log_info(m_file_descriptor_tag, "{}\n", __FUNCTION__);
+    *this = std::move(fd);
+}
 
 file_descriptor& file_descriptor::operator=(file_descriptor&& fd) noexcept
 {
+    log_info(m_file_descriptor_tag, "{}\n", __FUNCTION__);
+
     if (this != &fd)
     {
         m_fd = std::exchange(fd.m_fd, -1);
@@ -16,9 +22,14 @@ file_descriptor& file_descriptor::operator=(file_descriptor&& fd) noexcept
 
 file_descriptor::~file_descriptor() noexcept
 {
+    log_info(m_file_descriptor_tag, "{}\n", __FUNCTION__);
+
     if (*this)
     {
-        ::close(m_fd);
+        if (-1 == ::close(m_fd))
+        {
+            log_warning(m_file_descriptor_tag, "The file descriptor is not closed properly.\n");
+        }
     }
 }
 

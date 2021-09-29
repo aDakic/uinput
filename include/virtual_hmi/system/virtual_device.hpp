@@ -14,12 +14,15 @@ struct virtual_event
 class virtual_device
 {
 public:
-    virtual_device(const std::string_view& name, std::uint16_t vendor_id, std::uint16_t product_id, std::uint16_t version);
+    virtual_device();
     virtual_device(const virtual_device&) = delete;
     virtual_device(virtual_device&&) = default;
     virtual_device& operator=(const virtual_device&) = delete;
     virtual_device& operator=(virtual_device&&) = default;
     ~virtual_device() noexcept;
+
+    void set_info(const std::string_view& name, std::uint16_t vendor_id, 
+                  std::uint16_t product_id, std::uint16_t version) noexcept;
 
     template <typename... Events>
     [[nodiscard]] bool set_events(Events... events) noexcept;

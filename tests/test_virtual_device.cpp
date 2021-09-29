@@ -4,7 +4,9 @@
 
 TEST(virtual_device, constructor)
 {
-    virtual_device dev("virtual_device", 0x1234, 0x5678, 1);
+    virtual_device dev;
+
+    dev.set_info("virtual_device", 0x1234, 0x5678, 1);
 
     if(!dev.set_events(event_codes::sync, event_codes::key, event_codes::rel, event_codes::abs))
         EXPECT_TRUE(false);
