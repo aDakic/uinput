@@ -9,12 +9,14 @@ include(cmake/Tools.cmake)
 include(cmake/CPM.cmake)
 
 set(sources
-    src/file_descriptor.cpp
-    src/virtual_device.cpp)
+    src/system/file_descriptor.cpp
+    src/system/virtual_device.cpp)
 
 set(headers
-    include/${PROJECT_NAME}/file_descriptor.hpp
-    include/${PROJECT_NAME}/virtual_device.hpp)
+    include/${PROJECT_NAME}/common/logger.hpp
+    include/${PROJECT_NAME}/common/types.hpp
+    include/${PROJECT_NAME}/system/file_descriptor.hpp
+    include/${PROJECT_NAME}/system/virtual_device.hpp)
 
 add_library(${PROJECT_NAME} SHARED ${headers} ${sources})
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})

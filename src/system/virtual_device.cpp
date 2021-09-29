@@ -1,4 +1,4 @@
-#include "virtual_hmi/virtual_device.hpp"
+#include "virtual_hmi/system/virtual_device.hpp"
 
 #include <cstring>
 

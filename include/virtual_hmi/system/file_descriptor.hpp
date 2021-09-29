@@ -8,8 +8,8 @@
 #include <optional>
 #include <iostream>
 
-#include "types.hpp"
-#include "logger.h"
+#include "virtual_hmi/common/types.hpp"
+#include "virtual_hmi/common/logger.hpp"
 
 class file_descriptor final
 {

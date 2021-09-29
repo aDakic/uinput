@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "virtual_hmi/virtual_device.hpp"
+#include "virtual_hmi/system/virtual_device.hpp"
 
 TEST(virtual_device, constructor)
 {
