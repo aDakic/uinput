@@ -111,6 +111,13 @@ namespace key_codes {
     inline constexpr std::uint16_t scrollock = KEY_SCROLLLOCK;   
 }
 
+namespace key_ev_values
+{
+    inline constexpr std::uint8_t release = 0;
+    inline constexpr std::uint8_t press = 1;
+    inline constexpr std::uint8_t hold = 2;
+}
+
 namespace rel_codes {
     inline constexpr std::uint16_t x = REL_X;
     inline constexpr std::uint16_t y = REL_Y;
@@ -143,4 +150,11 @@ namespace abs_codes {
     inline constexpr std::uint16_t mt_x = ABS_MT_POSITION_X;
     inline constexpr std::uint16_t mt_y = ABS_MT_POSITION_Y;
     inline constexpr std::uint16_t mt_track_id = ABS_MT_TRACKING_ID;
+}
+
+namespace def
+{
+    inline constexpr std::uint16_t vendor_id = 0x1234;
+    inline constexpr std::uint16_t product_id = 0x4567;
+    inline constexpr std::uint16_t verson = 0x1;
 }

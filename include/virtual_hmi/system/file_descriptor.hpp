@@ -14,6 +14,7 @@
 class file_descriptor final
 {
 public:
+    file_descriptor() noexcept = default;
 
     template <typename... Flags>
     file_descriptor(const std::string_view& name, Flags... flags);
@@ -54,6 +55,7 @@ file_descriptor::file_descriptor(const std::string_view& name, Flags... flags)
     m_fd = open(name.data(), (flags | ...));
     if (-1 == m_fd)
     {
+        log_error(m_file_descriptor_tag, "Failed to open file descriptor\n", __FUNCTION__);
         throw std::runtime_error{"Failed to open file descriptor"};
     }
 }

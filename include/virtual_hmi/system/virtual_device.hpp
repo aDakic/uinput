@@ -11,6 +11,9 @@ struct virtual_event
     std::int32_t value;
 };
 
+template <std::size_t N>
+using event_buffer_t = std::array<virtual_event, N>;
+
 class virtual_device
 {
 public:
@@ -39,7 +42,7 @@ public:
     [[nodiscard]] bool create_device() noexcept;
 
     template <std::size_t N>
-    [[nodiscard]] bool emit(std::array<virtual_event, N> events) noexcept;
+    [[nodiscard]] bool emit(event_buffer_t<N> events) noexcept;
 
 private:
     template <typename... Bits>
@@ -86,7 +89,7 @@ bool virtual_device::set_abs_codes(AbsCodes... abs_codes) noexcept
 }
 
 template <std::size_t N>
-bool virtual_device::emit(std::array<virtual_event, N> events) noexcept
+bool virtual_device::emit(event_buffer_t<N> events) noexcept
 {
     return m_fd.write(events);
 }
