@@ -115,7 +115,6 @@ namespace key_ev_values
 {
     inline constexpr std::uint8_t release = 0;
     inline constexpr std::uint8_t press = 1;
-    inline constexpr std::uint8_t hold = 2;
 }
 
 namespace rel_codes {

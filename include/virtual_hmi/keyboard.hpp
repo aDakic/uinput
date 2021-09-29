@@ -11,7 +11,6 @@ public:
 
     bool press(std::uint16_t key) noexcept;
     bool release(std::uint16_t key) noexcept;
-    bool hold(std::uint16_t key) noexcept;
 
 private:
     template <std::uint8_t value>

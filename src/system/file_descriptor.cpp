@@ -24,7 +24,7 @@ file_descriptor::~file_descriptor() noexcept
 {
     log_info(m_file_descriptor_tag, "{}\n", __FUNCTION__);
 
-    if (*this)
+    if (-1 != m_fd)
     {
         if (-1 == ::close(m_fd))
         {

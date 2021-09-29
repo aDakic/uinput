@@ -4,38 +4,85 @@
 
 TEST(virtual_device, constructor)
 {
-    // virtual_device dev;
+    EXPECT_NO_THROW(virtual_device{});
+}
 
-    // dev.set_info("virtual_device", 0x1234, 0x5678, 1);
+constexpr inline std::uint16_t vendor_id = 0x1234;
+constexpr inline std::uint16_t product_id = 0x5678;
+constexpr inline std::uint16_t version = 0x1;
 
-    // if(!dev.set_events(event_codes::sync, event_codes::key, event_codes::rel, event_codes::abs))
-    //     EXPECT_TRUE(false);
+TEST(virtual_device, keyboard)
+{
+    virtual_device dev;
 
-    // if(!dev.set_key_codes(key_codes::space))
-    //     EXPECT_TRUE(false);
+    dev.set_info("virtual_keyboard", vendor_id, product_id, version);
 
-    // if(!dev.set_rel_codes(rel_codes::x))
-    //     EXPECT_TRUE(false);
+    EXPECT_TRUE(dev.set_events(event_codes::sync, event_codes::key));
+    EXPECT_TRUE(dev.set_key_codes(key_codes::space));
+    EXPECT_TRUE(dev.set_key_codes(key_codes::k1, key_codes::k2));
+    EXPECT_TRUE(dev.create_device());
 
-    // if(!dev.set_abs_codes(abs_codes::x))
-    //     EXPECT_TRUE(false);
+    // press space
+    constexpr event_buffer_t<2> space_press {{
+        {0, 0, event_codes::key, key_codes::space, key_ev_values::press},
+        {0, 0, event_codes::sync, sync_codes::report, 0}         
+    }};
 
-    // if(!dev.create_device())
-    //     EXPECT_TRUE(false);
-    // sleep(4);
-    // constexpr std::array<virtual_event, 2> press  {{
-    //         {0, 0, event_codes::key, key_codes::space, 1},
-    //         {0, 0, event_codes::sync, sync_codes::report, 0} 
-    // }};
+    EXPECT_TRUE(dev.emit(space_press));
 
-    // if(!dev.emit(press))
-    //     EXPECT_TRUE(false);
+    // release space
+    constexpr event_buffer_t<2> space_release {{
+            {0, 0, event_codes::key, key_codes::space, key_ev_values::release},
+            {0, 0, event_codes::sync, sync_codes::report, 0}
+    }};
 
-    // constexpr std::array<virtual_event, 2> release {{
-    //         {0, 0, event_codes::key, key_codes::space, 0},
-    //         {0, 0, event_codes::sync, sync_codes::report, 0}
-    // }};
+    EXPECT_TRUE(dev.emit(space_release));
 
-    // if(!dev.emit(release))
-    //     EXPECT_TRUE(false);
+    // press key 1
+    constexpr event_buffer_t<2> key_1_press {{
+        {0, 0, event_codes::key, key_codes::k1, key_ev_values::press},
+        {0, 0, event_codes::sync, sync_codes::report, 0}         
+    }};
+
+    EXPECT_TRUE(dev.emit(key_1_press));
+
+    // release key 1
+    constexpr event_buffer_t<2> key_1_release {{
+        {0, 0, event_codes::key, key_codes::k1, key_ev_values::release},
+        {0, 0, event_codes::sync, sync_codes::report, 0}         
+    }};
+
+    EXPECT_TRUE(dev.emit(key_1_release));
+}
+
+TEST(virtual_device, mouse)
+{
+    virtual_device dev;
+
+    dev.set_info("virtual_mouse", vendor_id, product_id, version);
+
+    EXPECT_TRUE(dev.set_events(event_codes::sync, event_codes::key, event_codes::rel));
+    EXPECT_TRUE(dev.set_key_codes(btn_codes::left, btn_codes::right));
+    EXPECT_TRUE(dev.set_rel_codes(rel_codes::x, rel_codes::y));
+    EXPECT_TRUE(dev.create_device());
+
+    sleep(10);
+    // move mouse
+    constexpr event_buffer_t<3> move_mouse {{
+        {0, 0, event_codes::rel, rel_codes::x, 50},
+        {0, 0, event_codes::rel, rel_codes::y, 50},
+        {0, 0, event_codes::sync, sync_codes::report, 0}         
+    }};
+
+    EXPECT_TRUE(dev.emit(move_mouse));
+
+    // press right click
+    constexpr event_buffer_t<4> right_click {{
+        {0, 0, event_codes::key, btn_codes::right, key_ev_values::press},
+        {0, 0, event_codes::sync, sync_codes::report, 0},
+        {0, 0, event_codes::key, btn_codes::right, key_ev_values::release},
+        {0, 0, event_codes::sync, sync_codes::report, 0}         
+    }};
+
+    EXPECT_TRUE(dev.emit(right_click));
 }
