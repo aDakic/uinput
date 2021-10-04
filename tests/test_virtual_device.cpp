@@ -66,7 +66,6 @@ TEST(virtual_device, mouse)
     EXPECT_TRUE(dev.set_rel_codes(rel_codes::x, rel_codes::y));
     EXPECT_TRUE(dev.create_device());
 
-    sleep(10);
     // move mouse
     constexpr event_buffer_t<3> move_mouse {{
         {0, 0, event_codes::rel, rel_codes::x, 50},

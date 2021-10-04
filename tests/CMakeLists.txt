@@ -1,7 +1,8 @@
 set(test_sources
     test_file_descriptor.cpp
     test_virtual_device.cpp
-    test_keyboard.cpp)
+    test_keyboard.cpp
+    test_mouse.cpp)
 
 add_executable(test ${test_sources})
 

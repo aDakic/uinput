@@ -124,6 +124,12 @@ namespace rel_codes {
     inline constexpr std::uint16_t wheel = REL_WHEEL;
 }
 
+namespace scroll_ev_values
+{
+    inline constexpr std::int32_t up = 1;
+    inline constexpr std::int32_t down = -1;
+}
+
 namespace btn_codes {
     inline constexpr std::uint16_t b0 = BTN_0;
     inline constexpr std::uint16_t b1 = BTN_1;
@@ -149,11 +155,4 @@ namespace abs_codes {
     inline constexpr std::uint16_t mt_x = ABS_MT_POSITION_X;
     inline constexpr std::uint16_t mt_y = ABS_MT_POSITION_Y;
     inline constexpr std::uint16_t mt_track_id = ABS_MT_TRACKING_ID;
-}
-
-namespace def
-{
-    inline constexpr std::uint16_t vendor_id = 0x1234;
-    inline constexpr std::uint16_t product_id = 0x4567;
-    inline constexpr std::uint16_t verson = 0x1;
 }

@@ -11,14 +11,16 @@ include(cmake/CPM.cmake)
 set(sources
     src/system/file_descriptor.cpp
     src/system/virtual_device.cpp
-    src/keyboard.cpp)
+    src/keyboard.cpp
+    src/mouse.cpp)
 
 set(headers
     include/${PROJECT_NAME}/common/logger.hpp
     include/${PROJECT_NAME}/common/types.hpp
     include/${PROJECT_NAME}/system/file_descriptor.hpp
     include/${PROJECT_NAME}/system/virtual_device.hpp
-    include/${PROJECT_NAME}/keyboard.hpp)
+    include/${PROJECT_NAME}/keyboard.hpp
+    include/${PROJECT_NAME}/mouse.hpp)
 
 add_library(${PROJECT_NAME} SHARED ${headers} ${sources})
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
