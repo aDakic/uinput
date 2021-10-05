@@ -12,7 +12,8 @@ set(sources
     src/system/file_descriptor.cpp
     src/system/virtual_device.cpp
     src/keyboard.cpp
-    src/mouse.cpp)
+    src/mouse.cpp
+    src/touch.cpp)
 
 set(headers
     include/${PROJECT_NAME}/common/logger.hpp
@@ -20,7 +21,8 @@ set(headers
     include/${PROJECT_NAME}/system/file_descriptor.hpp
     include/${PROJECT_NAME}/system/virtual_device.hpp
     include/${PROJECT_NAME}/keyboard.hpp
-    include/${PROJECT_NAME}/mouse.hpp)
+    include/${PROJECT_NAME}/mouse.hpp
+    include/${PROJECT_NAME}/touch.hpp)
 
 add_library(${PROJECT_NAME} SHARED ${headers} ${sources})
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})

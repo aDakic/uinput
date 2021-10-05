@@ -44,6 +44,9 @@ public:
     template <std::size_t N>
     [[nodiscard]] bool emit(event_buffer_t<N> events) noexcept;
 
+    template <std::uint16_t Code>
+    void set_abs_info(std::int32_t min, std::int32_t max) noexcept;
+
 private:
     template <typename... Bits>
     bool set_bits(int flag, Bits... bits) noexcept;
@@ -51,7 +54,7 @@ private:
     static constexpr const char * m_uinput_path = "/dev/uinput";
     static constexpr const char * m_virtual_device_tag = "virtual_device";
     file_descriptor m_fd;
-    uinput_setup m_uinput_setup {};
+    uinput_user_dev m_uinput_setup {};
 };
 
 // Template methods implementation
@@ -100,4 +103,11 @@ bool virtual_device::set_bits(int flag, Bits... bits) noexcept
     auto bits_ioctl  = [&](auto bit) { return m_fd.ioctl(flag, bit); };
 
     return (bits_ioctl(bits) && ...);
+}
+
+template <std::uint16_t Code>
+void virtual_device::set_abs_info(std::int32_t min, std::int32_t max) noexcept
+{
+    m_uinput_setup.absmin[Code] = min;
+    m_uinput_setup.absmax[Code] = max;
 }

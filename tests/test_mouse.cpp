@@ -4,6 +4,6 @@
 
 TEST(mouse, constructor)
 {
-    mouse m;
-    sleep(5);
+    // mouse m;
+    // sleep(5);
 }
