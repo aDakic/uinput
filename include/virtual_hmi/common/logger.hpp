@@ -25,10 +25,6 @@ inline void log_info(Tag tag, Message msg, Args&&... args)
         logger::log(fmt::color::medium_sea_green, logger::g_info, std::forward<Tag>(tag), std::forward<Message>(msg),
                     std::forward<Args>(args)...);
     }
-    else
-    {
-        // NO LOGGING
-    }
 }
 
 template<typename Tag, typename Message, typename... Args>
@@ -39,10 +35,6 @@ inline void log_warning(Tag tag, Message msg, Args&&... args)
         logger::log(fmt::color::orange, logger::g_warning, std::forward<Tag>(tag), std::forward<Message>(msg),
                     std::forward<Args>(args)...);
     }
-    else
-    {
-        // NO LOGGING
-    }
 }
 
 template<typename Tag, typename Message, typename... Args>
@@ -52,10 +44,6 @@ inline void log_error(Tag tag, Message msg, Args&&... args)
     {
         logger::log(fmt::color::red, logger::g_error, std::forward<Tag>(tag), std::forward<Message>(msg),
                     std::forward<Args>(args)...);
-    }
-    else
-    {
-        // NO LOGGING
     }
 }
 
