@@ -30,13 +30,13 @@ public:
     explicit operator bool() const noexcept;
 
     template <typename T, std::size_t N>
-    [[nodiscard]] bool write(std::array<T, N> buffer) noexcept;
+    [[nodiscard]] bool write(const std::array<T, N>& buffer) noexcept;
 
     template <typename T, std::size_t N>
     [[nodiscard]] std::optional<std::array<T, N>> read() const noexcept;
 
     template <typename... Args>
-    [[nodiscard]] bool ioctl(std::uint64_t request, Args&&... args) noexcept;
+    [[nodiscard]] bool ioctl(const std::uint64_t request, Args&&... args) noexcept;
 
 private:
     static constexpr const char *m_file_descriptor_tag = "file_descriptor";
@@ -61,7 +61,7 @@ file_descriptor::file_descriptor(const std::string_view& name, Flags... flags)
 }
 
 template <typename T, std::size_t N>
-bool file_descriptor::write(std::array<T, N> buffer) noexcept
+bool file_descriptor::write(const std::array<T, N>& buffer) noexcept
 {
     log_info(m_file_descriptor_tag, "{}\n", __FUNCTION__);
 
@@ -95,7 +95,7 @@ std::optional<std::array<T, N>> file_descriptor::read() const noexcept
 }
 
 template <typename... Args>
-bool file_descriptor::ioctl(std::uint64_t request, Args&&... args) noexcept
+bool file_descriptor::ioctl(const std::uint64_t request, Args&&... args) noexcept
 {
     if (-1 == ::ioctl(m_fd, request, std::forward<Args>(args)...))
     {

@@ -145,6 +145,7 @@ namespace btn_codes {
     inline constexpr std::uint16_t right = BTN_RIGHT;
     inline constexpr std::uint16_t middle = BTN_MIDDLE;
     inline constexpr std::uint16_t side = BTN_SIDE;
+    inline constexpr std::uint16_t touch = BTN_TOUCH;
 }
 
 namespace abs_codes {

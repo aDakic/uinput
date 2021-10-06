@@ -28,28 +28,28 @@ public:
                   std::uint16_t product_id, std::uint16_t version) noexcept;
 
     template <typename... Events>
-    [[nodiscard]] bool set_events(Events... events) noexcept;
+    [[nodiscard]] bool set_events(const Events... events) noexcept;
 
     template <typename... KeyCodes>
-    [[nodiscard]] bool set_key_codes(KeyCodes... key_codes) noexcept;
+    [[nodiscard]] bool set_key_codes(const KeyCodes... key_codes) noexcept;
 
     template <typename... RelCodes>
-    [[nodiscard]] bool set_rel_codes(RelCodes... rel_codes) noexcept;
+    [[nodiscard]] bool set_rel_codes(const RelCodes... rel_codes) noexcept;
 
     template <typename... AbsCodes>
-    [[nodiscard]] bool set_abs_codes(AbsCodes... abs_codes) noexcept;
+    [[nodiscard]] bool set_abs_codes(const AbsCodes... abs_codes) noexcept;
 
     [[nodiscard]] bool create_device() noexcept;
 
     template <std::size_t N>
-    [[nodiscard]] bool emit(event_buffer_t<N> events) noexcept;
+    [[nodiscard]] bool emit(const event_buffer_t<N> events) noexcept;
 
     template <std::uint16_t Code>
-    void set_abs_info(std::int32_t min, std::int32_t max) noexcept;
+    void set_abs_info(const std::int32_t min, const std::int32_t max) noexcept;
 
 private:
     template <typename... Bits>
-    bool set_bits(int flag, Bits... bits) noexcept;
+    bool set_bits(const int flag, const Bits... bits) noexcept;
 
     static constexpr const char * m_uinput_path = "/dev/uinput";
     static constexpr const char * m_virtual_device_tag = "virtual_device";
@@ -60,7 +60,7 @@ private:
 // Template methods implementation
 
 template <typename... Events>
-bool virtual_device::set_events(Events... events) noexcept
+bool virtual_device::set_events(const Events... events) noexcept
 {
     log_info(m_virtual_device_tag, "{}\n", __FUNCTION__);
 
@@ -68,7 +68,7 @@ bool virtual_device::set_events(Events... events) noexcept
 }
 
 template <typename... KeyCodes>
-bool virtual_device::set_key_codes(KeyCodes... key_codes) noexcept
+bool virtual_device::set_key_codes(const KeyCodes... key_codes) noexcept
 {
     log_info(m_virtual_device_tag, "{}\n", __FUNCTION__);
 
@@ -76,7 +76,7 @@ bool virtual_device::set_key_codes(KeyCodes... key_codes) noexcept
 }
 
 template <typename... RelCodes>
-bool virtual_device::set_rel_codes(RelCodes... rel_codes) noexcept
+bool virtual_device::set_rel_codes(const RelCodes... rel_codes) noexcept
 {
     log_info(m_virtual_device_tag, "{}\n", __FUNCTION__);
 
@@ -84,7 +84,7 @@ bool virtual_device::set_rel_codes(RelCodes... rel_codes) noexcept
 }
 
 template <typename... AbsCodes>
-bool virtual_device::set_abs_codes(AbsCodes... abs_codes) noexcept
+bool virtual_device::set_abs_codes(const AbsCodes... abs_codes) noexcept
 {
     log_info(m_virtual_device_tag, "{}\n", __FUNCTION__);
 
@@ -92,13 +92,13 @@ bool virtual_device::set_abs_codes(AbsCodes... abs_codes) noexcept
 }
 
 template <std::size_t N>
-bool virtual_device::emit(event_buffer_t<N> events) noexcept
+bool virtual_device::emit(const event_buffer_t<N> events) noexcept
 {
     return m_fd.write(events);
 }
 
 template <typename... Bits>
-bool virtual_device::set_bits(int flag, Bits... bits) noexcept
+bool virtual_device::set_bits(const int flag, const Bits... bits) noexcept
 {
     auto bits_ioctl  = [&](auto bit) { return m_fd.ioctl(flag, bit); };
 
@@ -106,7 +106,7 @@ bool virtual_device::set_bits(int flag, Bits... bits) noexcept
 }
 
 template <std::uint16_t Code>
-void virtual_device::set_abs_info(std::int32_t min, std::int32_t max) noexcept
+void virtual_device::set_abs_info(const std::int32_t min, const std::int32_t max) noexcept
 {
     m_uinput_setup.absmin[Code] = min;
     m_uinput_setup.absmax[Code] = max;
