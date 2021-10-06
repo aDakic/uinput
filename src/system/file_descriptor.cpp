@@ -2,19 +2,44 @@
 
 #include <utility>
 
-file_descriptor::file_descriptor(file_descriptor&& fd) noexcept
+file_descriptor::file_descriptor(const file_descriptor& other)
 {
-    log_info(m_file_descriptor_tag, "{}\n", __FUNCTION__);
-    *this = std::move(fd);
+    log_info(m_file_descriptor_tag, "Copy constructor\n");
+    *this = other;
 }
 
-file_descriptor& file_descriptor::operator=(file_descriptor&& fd) noexcept
+file_descriptor& file_descriptor::operator=(const file_descriptor& other)
 {
-    log_info(m_file_descriptor_tag, "{}\n", __FUNCTION__);
+    log_info(m_file_descriptor_tag, "Copy {}\n", __FUNCTION__);
 
-    if (this != &fd)
+    if (this != &other)
     {
-        m_fd = std::exchange(fd.m_fd, -1);
+        int dup_fd = dup(other.m_fd);
+        if (-1 == dup_fd)
+        {
+            throw std::runtime_error{"Failed to crate file descriptor duplicate.\n"};
+        }
+
+        ::close(m_fd);
+        m_fd = dup_fd;
+    }
+
+    return *this;
+}
+
+file_descriptor::file_descriptor(file_descriptor&& other) noexcept
+{
+    log_info(m_file_descriptor_tag, "Move constructor\n");
+    *this = std::move(other);
+}
+
+file_descriptor& file_descriptor::operator=(file_descriptor&& other) noexcept
+{
+    log_info(m_file_descriptor_tag, "Move {}\n", __FUNCTION__);
+
+    if (this != &other)
+    {
+        m_fd = std::exchange(other.m_fd, -1);
     }
 
     return *this;

@@ -14,13 +14,12 @@
 class file_descriptor final
 {
 public:
-    file_descriptor() noexcept = default;
 
     template <typename... Flags>
     file_descriptor(const std::string_view& name, Flags... flags);
 
-    file_descriptor(const file_descriptor&) = delete;
-    file_descriptor& operator=(const file_descriptor&) = delete;
+    file_descriptor(const file_descriptor&);
+    file_descriptor& operator=(const file_descriptor&);
 
     file_descriptor(file_descriptor&& fd) noexcept;
     file_descriptor& operator=(file_descriptor&& fd) noexcept;
@@ -40,7 +39,7 @@ public:
 
 private:
     static constexpr const char *m_file_descriptor_tag = "file_descriptor";
-    int32_t m_fd {-1};
+    std::int32_t m_fd {-1};
 };
 
 // Template methods implementation
