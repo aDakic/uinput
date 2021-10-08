@@ -2,21 +2,22 @@
 
 #include <fcntl.h>
 #include <unistd.h>
+#include <sys/ioctl.h>
+
 #include <string_view>
 #include <stdexcept>
 #include <array>
 #include <optional>
 #include <iostream>
 
-#include "virtual_hmi/common/types.hpp"
-#include "virtual_hmi/common/logger.hpp"
+#include "hmi/common/logger.hpp"
 
 class file_descriptor final
 {
 public:
 
     template <typename... Flags>
-    file_descriptor(const std::string_view& name, Flags... flags);
+    file_descriptor(std::string_view name, Flags... flags);
 
     file_descriptor(const file_descriptor&);
     file_descriptor& operator=(const file_descriptor&);
@@ -45,7 +46,7 @@ private:
 // Template methods implementation
 
 template <typename... Flags>
-file_descriptor::file_descriptor(const std::string_view& name, Flags... flags)
+file_descriptor::file_descriptor(std::string_view name, Flags... flags)
 {
     static_assert(std::conjunction_v<std::is_integral<Flags>...>);
 

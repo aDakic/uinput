@@ -1,9 +1,5 @@
 set(test_sources
-    test_file_descriptor.cpp
-    test_virtual_device.cpp
-    test_keyboard.cpp
-    test_mouse.cpp
-    test_touch.cpp)
+    system/linux/test_file_descriptor.cpp)
 
 add_executable(test ${test_sources})
 
@@ -20,5 +16,5 @@ target_link_libraries(
   PUBLIC
   GTest::GTest
   GTest::Main
-  virtual_hmi::virtual_hmi
+  hmi::hmi
 )

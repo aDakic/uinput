@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15 FATAL_ERROR)
 
-project(virtual_hmi
+project(hmi
         VERSION 1.0.0
         LANGUAGES CXX)
 
@@ -9,20 +9,12 @@ include(cmake/Tools.cmake)
 include(cmake/CPM.cmake)
 
 set(sources
-    src/system/file_descriptor.cpp
-    src/system/virtual_device.cpp
-    src/keyboard.cpp
-    src/mouse.cpp
-    src/touch.cpp)
+    src/system/linux/file_descriptor.cpp)
 
 set(headers
     include/${PROJECT_NAME}/common/logger.hpp
     include/${PROJECT_NAME}/common/types.hpp
-    include/${PROJECT_NAME}/system/file_descriptor.hpp
-    include/${PROJECT_NAME}/system/virtual_device.hpp
-    include/${PROJECT_NAME}/keyboard.hpp
-    include/${PROJECT_NAME}/mouse.hpp
-    include/${PROJECT_NAME}/touch.hpp)
+    include/${PROJECT_NAME}/system/linux/file_descriptor.hpp)
 
 add_library(${PROJECT_NAME} SHARED ${headers} ${sources})
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
