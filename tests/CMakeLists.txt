@@ -1,5 +1,6 @@
 set(test_sources
-    system/test_file_descriptor.cpp)
+    system/test_file_desc.cpp
+    system/test_uinput.cpp)
 
 add_executable(test ${test_sources})
 
