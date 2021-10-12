@@ -16,6 +16,7 @@ public:
     uinput& operator=(uinput&&) noexcept = default;
     virtual ~uinput() noexcept;
 
+protected:
     void set_info(std::string_view name, const std::uint16_t vendor_id, 
                   const std::uint16_t product_id, const std::uint16_t version) noexcept;
 
@@ -34,7 +35,7 @@ public:
     [[nodiscard]] bool create_device() noexcept;
 
     template <std::size_t N>
-    [[nodiscard]] bool emit(const event_buffer_t<N> events) noexcept;
+    [[nodiscard]] bool emit(const event_buffer_t<N>& events) noexcept;
 
     template <std::uint16_t Code>
     void set_abs_info(const std::int32_t min, const std::int32_t max) noexcept;
@@ -74,7 +75,7 @@ bool uinput::set_abs_codes(const AbsCodes... abs_codes) noexcept
 }
 
 template <std::size_t N>
-bool uinput::emit(const event_buffer_t<N> events) noexcept
+bool uinput::emit(const event_buffer_t<N>& events) noexcept
 {
     return fd::file_desc::write(events);
 }

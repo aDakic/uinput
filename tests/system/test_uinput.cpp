@@ -2,9 +2,36 @@
 
 #include "hmi/system/uinput.hpp"
 
+class test_uinput : ui::uinput
+{
+    public:
+    void set_info(std::string_view name, const std::uint16_t vendor_id, 
+                const std::uint16_t product_id, const std::uint16_t version) noexcept
+    {
+        ui::uinput::set_info(name, vendor_id, product_id, version);
+    }
+
+    template <typename... Events>
+    bool set_events(const Events... events) noexcept { return ui::uinput::set_events(events...); }
+
+    template <typename... KeyCodes>
+    bool set_key_codes(const KeyCodes... key_codes) noexcept { return ui::uinput::set_key_codes(key_codes...); }
+
+    template <typename... RelCodes>
+    bool set_rel_codes(const RelCodes... rel_codes) noexcept { return ui::uinput::set_rel_codes(rel_codes...); }
+
+    template <typename... AbsCodes>
+    bool set_abs_codes(const AbsCodes... abs_codes) noexcept { return ui::uinput::set_abs_codes(abs_codes...); }
+
+    template <std::size_t N>
+    bool emit(const ui::event_buffer_t<N>& events) noexcept  { return ui::uinput::emit(events); }
+
+    bool create_device() noexcept { return ui::uinput::create_device(); }
+};
+
 TEST(uinput, constructor)
 {
-    EXPECT_NO_THROW(ui::uinput{});
+    EXPECT_NO_THROW(test_uinput{});
 }
 
 constexpr inline std::uint16_t vendor_id = 0x1234;
@@ -13,7 +40,7 @@ constexpr inline std::uint16_t version = 0x1;
 
 TEST(uinput, keyboard)
 {
-    ui::uinput dev;
+    test_uinput dev;
 
     dev.set_info("virtual_keyboard", vendor_id, product_id, version);
 
@@ -57,7 +84,7 @@ TEST(uinput, keyboard)
 
 TEST(uinput, mouse)
 {
-    ui::uinput dev;
+    test_uinput dev;
 
     dev.set_info("virtual_mouse", vendor_id, product_id, version);
 
