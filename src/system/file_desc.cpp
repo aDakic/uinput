@@ -4,10 +4,7 @@
 
 namespace fd
 {
-    file_desc::file_desc(const file_desc& other)
-    {
-        *this = other;
-    }
+    file_desc::file_desc(const file_desc& other) { *this = other; }
 
     file_desc& file_desc::operator=(const file_desc& other)
     {
@@ -26,10 +23,7 @@ namespace fd
         return *this;
     }
 
-    file_desc::file_desc(file_desc&& other) noexcept
-    {
-        *this = std::move(other);
-    }
+    file_desc::file_desc(file_desc&& other) noexcept { *this = std::move(other); }
 
     file_desc& file_desc::operator=(file_desc&& other) noexcept
     {
