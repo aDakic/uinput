@@ -1,5 +1,5 @@
 set(test_sources
-    system/linux/test_file_descriptor.cpp)
+    system/test_file_descriptor.cpp)
 
 add_executable(test ${test_sources})
 

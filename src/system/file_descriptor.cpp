@@ -1,6 +1,9 @@
-#include "hmi/system/linux/file_descriptor.hpp"
+#include "hmi/system/file_descriptor.hpp"
 
 #include <utility>
+
+namespace fd
+{
 
 file_descriptor::file_descriptor(const file_descriptor& other)
 {
@@ -59,3 +62,4 @@ file_descriptor::~file_descriptor() noexcept
 }
 
 file_descriptor::operator bool() const noexcept { return -1 != m_fd; }
+}

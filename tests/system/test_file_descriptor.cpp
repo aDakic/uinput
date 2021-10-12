@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include "hmi/system/linux/file_descriptor.hpp"
-#include "hmi/system/linux/types.hpp"
+#include "hmi/system/file_descriptor.hpp"
+#include "hmi/system/file_descriptor_types.hpp"
 
 class file_descriptor_test : public ::testing::Test {
 protected:
@@ -30,26 +30,26 @@ public:
 TEST_F(file_descriptor_test, constructor)
 {
 
-  EXPECT_THROW(file_descriptor("aaa", linux_os::flags::read_only), std::runtime_error);
+  EXPECT_THROW(fd::file_descriptor("aaa", fd::flags::read_only), std::runtime_error);
    
-  EXPECT_NO_THROW(file_descriptor(file_descriptor_test::ro_file_name, linux_os::flags::read_only));
-  EXPECT_NO_THROW(file_descriptor(file_descriptor_test::rw_file_name, linux_os::flags::read_write));
-  EXPECT_NO_THROW(file_descriptor(file_descriptor_test::wo_file_name, linux_os::flags::write_only));
+  EXPECT_NO_THROW(fd::file_descriptor(file_descriptor_test::ro_file_name, fd::flags::read_only));
+  EXPECT_NO_THROW(fd::file_descriptor(file_descriptor_test::rw_file_name, fd::flags::read_write));
+  EXPECT_NO_THROW(fd::file_descriptor(file_descriptor_test::wo_file_name, fd::flags::write_only));
 
-  EXPECT_THROW(file_descriptor(file_descriptor_test::ro_file_name, linux_os::flags::read_write), std::runtime_error);
-  EXPECT_THROW(file_descriptor(file_descriptor_test::wo_file_name, linux_os::flags::read_write), std::runtime_error);
+  EXPECT_THROW(fd::file_descriptor(file_descriptor_test::ro_file_name, fd::flags::read_write), std::runtime_error);
+  EXPECT_THROW(fd::file_descriptor(file_descriptor_test::wo_file_name, fd::flags::read_write), std::runtime_error);
 }
 
 TEST_F(file_descriptor_test, move_operation)
 {
    // move from temporary
-   auto new_fd = file_descriptor(file_descriptor_test::ro_file_name, linux_os::flags::read_write);
+   auto new_fd = fd::file_descriptor(file_descriptor_test::ro_file_name, fd::flags::read_write);
    // bool() implicit conversion operator
    EXPECT_TRUE(new_fd);
 
    // move from optional
-   std::optional<file_descriptor> opt_fd;
-   opt_fd.emplace(file_descriptor_test::ro_file_name, linux_os::flags::read_only);
+   std::optional<fd::file_descriptor> opt_fd;
+   opt_fd.emplace(file_descriptor_test::ro_file_name, fd::flags::read_only);
 
    EXPECT_NO_THROW(auto new_fd = std::move(opt_fd).value());
 
@@ -66,7 +66,7 @@ TEST_F(file_descriptor_test, move_operation)
 TEST_F(file_descriptor_test, write)
 {
    {
-      file_descriptor fd(file_descriptor_test::ro_file_name, linux_os::flags::read_only);
+      fd::file_descriptor fd(file_descriptor_test::ro_file_name, fd::flags::read_only);
       EXPECT_TRUE(fd);
 
       std::array<char, 4> buf {"aaa"};
@@ -75,7 +75,7 @@ TEST_F(file_descriptor_test, write)
    }
 
    {
-      file_descriptor fd(file_descriptor_test::wo_file_name, linux_os::flags::write_only);
+      fd::file_descriptor fd(file_descriptor_test::wo_file_name, fd::flags::write_only);
 
       std::array<char, 4> buf {"aaa"};
       EXPECT_TRUE(fd.write(buf));
@@ -85,7 +85,7 @@ TEST_F(file_descriptor_test, write)
 TEST_F(file_descriptor_test, read)
 {
    {
-      file_descriptor fd(file_descriptor_test::ro_file_name, linux_os::flags::read_only);
+      fd::file_descriptor fd(file_descriptor_test::ro_file_name, fd::flags::read_only);
       EXPECT_TRUE(fd);
 
       auto op_buf = fd.read<char, 4>();
@@ -96,7 +96,7 @@ TEST_F(file_descriptor_test, read)
    }
 
    {
-      file_descriptor fd(file_descriptor_test::wo_file_name, linux_os::flags::write_only);
+      fd::file_descriptor fd(file_descriptor_test::wo_file_name, fd::flags::write_only);
 
       auto op_buf = fd.read<char, 4>();
       EXPECT_TRUE(op_buf == std::nullopt);

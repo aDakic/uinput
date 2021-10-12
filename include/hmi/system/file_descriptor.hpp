@@ -12,6 +12,9 @@
 
 #include "hmi/common/logger.hpp"
 
+namespace fd
+{
+
 class file_descriptor final
 {
 public:
@@ -107,4 +110,5 @@ bool file_descriptor::ioctl(const std::uint64_t request, Args&&... args) noexcep
         log_info(m_file_descriptor_tag, "ioctl ended successfully\n");
         return true;
     }
+}
 }
