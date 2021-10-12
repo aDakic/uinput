@@ -1,6 +1,7 @@
 set(test_sources
     system/test_file_desc.cpp
-    system/test_uinput.cpp)
+    system/test_uinput.cpp
+    test_keyboard.cpp)
 
 add_executable(test ${test_sources})
 

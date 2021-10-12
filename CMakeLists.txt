@@ -10,14 +10,16 @@ include(cmake/CPM.cmake)
 
 set(sources
     src/system/file_desc.cpp
-    src/system/uinput.cpp)
+    src/system/uinput.cpp
+    src/keyboard.cpp)
 
 set(headers
     include/${PROJECT_NAME}/common/logger.hpp
     include/${PROJECT_NAME}/system/file_desc_defines.hpp
     include/${PROJECT_NAME}/system/file_desc.hpp
     include/${PROJECT_NAME}/system/uinput.hpp
-    include/${PROJECT_NAME}/system/uinput_defines.hpp)
+    include/${PROJECT_NAME}/system/uinput_defines.hpp
+    include/${PROJECT_NAME}/keyboard.hpp)
 
 add_library(${PROJECT_NAME} SHARED ${headers} ${sources})
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
