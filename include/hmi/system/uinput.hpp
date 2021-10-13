@@ -21,16 +21,16 @@ protected:
                   const std::uint16_t product_id, const std::uint16_t version) noexcept;
 
     template <typename... Events>
-    bool set_events(const Events... events) noexcept;
+    [[nodiscard]] bool set_events(const Events... events) noexcept;
 
     template <typename... KeyCodes>
-    bool set_key_codes(const KeyCodes... key_codes) noexcept;
+    [[nodiscard]] bool set_key_codes(const KeyCodes... key_codes) noexcept;
 
     template <typename... RelCodes>
-    bool set_rel_codes(const RelCodes... rel_codes) noexcept;
+    [[nodiscard]] bool set_rel_codes(const RelCodes... rel_codes) noexcept;
 
     template <typename... AbsCodes>
-    bool set_abs_codes(const AbsCodes... abs_codes) noexcept;
+    [[nodiscard]] bool set_abs_codes(const AbsCodes... abs_codes) noexcept;
 
     [[nodiscard]] bool create_device() noexcept;
 
@@ -71,6 +71,7 @@ bool uinput::set_rel_codes(const RelCodes... rel_codes) noexcept
 template <typename... AbsCodes>
 bool uinput::set_abs_codes(const AbsCodes... abs_codes) noexcept
 {
+
     return set_bits(bit::set_abss, abs_codes...);
 }
 
@@ -94,4 +95,5 @@ bool uinput::set_bits(const int flag, const Bits... bits) noexcept
 
     return (bits_ioctl(bits) && ...);
 }
+
 }

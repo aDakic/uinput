@@ -8,7 +8,7 @@ class keyboard final : ui::uinput
 {
 public:
     template <typename... KeyCodes>
-    keyboard(KeyCodes... key_codes);
+    keyboard(const KeyCodes... key_codes);
 
     bool press(std::uint16_t key) noexcept;
     bool release(std::uint16_t key) noexcept;
@@ -17,7 +17,7 @@ public:
 // Template methods implementation
 
 template <typename... KeyCodes>
-keyboard::keyboard(KeyCodes... key_codes)
+keyboard::keyboard(const KeyCodes... key_codes)
 {
     constexpr const char* name = "Virtual HMI Keyboard";
     constexpr std::uint16_t vendor = 0xACAD;
@@ -26,7 +26,7 @@ keyboard::keyboard(KeyCodes... key_codes)
 
     set_info(name, vendor, product, version);
 
-    if (!set_events(ui::ev_code::sync, ui::ev_code::key))
+    if (!set_events(ui::ev_type::sync, ui::ev_type::key))
         throw std::runtime_error{"Failed to set supproted events."};
 
     if (!set_key_codes(key_codes...))

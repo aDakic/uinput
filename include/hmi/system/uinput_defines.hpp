@@ -31,7 +31,7 @@ namespace setup {
     inline constexpr std::uint16_t max_name_size = UINPUT_MAX_NAME_SIZE;
 }
 
-namespace ev_code {
+namespace ev_type {
     inline constexpr std::uint16_t sync = EV_SYN;
     inline constexpr std::uint16_t key = EV_KEY;
     inline constexpr std::uint16_t rel = EV_REL;

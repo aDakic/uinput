@@ -109,4 +109,5 @@ bool file_desc::ioctl(const std::uint64_t request, Args&&... args) noexcept
         return true;
     }
 }
+
 }

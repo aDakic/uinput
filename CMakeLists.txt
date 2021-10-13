@@ -11,7 +11,9 @@ include(cmake/CPM.cmake)
 set(sources
     src/system/file_desc.cpp
     src/system/uinput.cpp
-    src/keyboard.cpp)
+    src/keyboard.cpp
+    src/mouse.cpp
+    src/touch.cpp)
 
 set(headers
     include/${PROJECT_NAME}/common/logger.hpp
@@ -19,7 +21,9 @@ set(headers
     include/${PROJECT_NAME}/system/file_desc.hpp
     include/${PROJECT_NAME}/system/uinput.hpp
     include/${PROJECT_NAME}/system/uinput_defines.hpp
-    include/${PROJECT_NAME}/keyboard.hpp)
+    include/${PROJECT_NAME}/keyboard.hpp
+    include/${PROJECT_NAME}/mouse.hpp
+    include/${PROJECT_NAME}/touch.hpp)
 
 add_library(${PROJECT_NAME} SHARED ${headers} ${sources})
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
