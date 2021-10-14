@@ -15,7 +15,6 @@ namespace ui
         uinput& operator=(uinput&&) noexcept = default;
         ~uinput() noexcept;
 
-    protected:
         void set_info(std::string_view name, const std::uint16_t vendor_id, const std::uint16_t product_id,
                       const std::uint16_t version) noexcept;
 
@@ -41,7 +40,7 @@ namespace ui
 
     private:
         static constexpr const char* uinput_path = "/dev/uinput";
-        uinput_user_dev m_uinput_setup{};
+        setup_t m_setup{};
 
         template<typename... Bits>
         bool set_bits(const int flag, const Bits... bits) noexcept;
@@ -82,8 +81,8 @@ namespace ui
     template<std::uint16_t Code>
     void uinput::set_abs_info(const std::int32_t min, const std::int32_t max) noexcept
     {
-        m_uinput_setup.absmin[Code] = min;
-        m_uinput_setup.absmax[Code] = max;
+        m_setup.absmin[Code] = min;
+        m_setup.absmax[Code] = max;
     }
 
     template<typename... Bits>

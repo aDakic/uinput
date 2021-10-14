@@ -2,7 +2,7 @@
 
 namespace hmi
 {
-    class mouse final : ui::uinput
+    class mouse final
     {
     public:
         mouse();
@@ -15,6 +15,9 @@ namespace hmi
 
         bool scroll_up() noexcept;
         bool scroll_down() noexcept;
+
+    private:
+        ui::uinput m_driver;
     };
 
 }  // namespace hmi

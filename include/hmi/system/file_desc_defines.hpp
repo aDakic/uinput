@@ -11,7 +11,7 @@ namespace fd
 
     template <typename T>
     using opt_t = std::optional<T>;
-
+    
     template<typename T, std::size_t N>
     using opt_buffer_t = std::optional<buffer_t<T, N>>;
 

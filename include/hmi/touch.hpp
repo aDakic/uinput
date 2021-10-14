@@ -13,7 +13,7 @@ namespace hmi
         std::int32_t max_slots;
     };
 
-    class touch final : ui::uinput
+    class touch final
     {
     public:
         touch(touch_config config);
@@ -28,6 +28,7 @@ namespace hmi
         std::int32_t get_y(std::int32_t y) const noexcept;
 
         touch_config m_config;
+        ui::uinput m_driver;
     };
 
 }  // namespace hmi

@@ -4,17 +4,11 @@
 
 namespace ui
 {
-    struct event
-    {
-        std::uint64_t sec;
-        std::uint64_t usec;
-        std::uint16_t type;
-        std::uint16_t code;
-        std::int32_t value;
-    };
-
+    using event_t = input_event;
+    using setup_t = uinput_user_dev;
+    
     template<std::size_t N>
-    using event_buffer_t = std::array<event, N>;
+    using event_buffer_t = std::array<event_t, N>;
 
     namespace bit
     {

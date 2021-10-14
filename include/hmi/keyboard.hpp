@@ -4,7 +4,7 @@
 
 namespace hmi
 {
-    class keyboard final : ui::uinput
+    class keyboard final
     {
     public:
         template<typename... KeyCodes>
@@ -12,6 +12,8 @@ namespace hmi
 
         bool press(std::uint16_t key) noexcept;
         bool release(std::uint16_t key) noexcept;
+
+        ui::uinput m_driver;
     };
 
     // Template methods implementation
@@ -24,15 +26,15 @@ namespace hmi
         constexpr std::uint16_t product = 0x0001;
         constexpr std::uint16_t version = 0x0001;
 
-        set_info(name, vendor, product, version);
+        m_driver.set_info(name, vendor, product, version);
 
-        if (!set_events(ui::ev_type::sync, ui::ev_type::key))
+        if (!m_driver.set_events(ui::ev_type::sync, ui::ev_type::key))
             throw std::runtime_error{ "Failed to set supproted events." };
 
-        if (!set_key_codes(key_codes...))
+        if (!m_driver.set_key_codes(key_codes...))
             throw std::runtime_error{ "Failed to set supproted key codes." };
 
-        if (!create_device())
+        if (!m_driver.create_device())
             throw std::runtime_error{ "Failed to create virtual device." };
     }
 }  // namespace hmi
