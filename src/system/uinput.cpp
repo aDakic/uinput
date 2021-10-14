@@ -24,7 +24,6 @@ namespace ui
 
     bool uinput::create_device() noexcept
     {
-        fd::buffer_t<uinput_user_dev, 1> buffer{ m_uinput_setup };
-        return fd::file_desc::write(buffer) && fd::file_desc::ioctl(bit::dev_create);
+        return fd::file_desc::write(m_uinput_setup) && fd::file_desc::ioctl(bit::dev_create);
     }
 }  // namespace ui

@@ -27,15 +27,23 @@ namespace fd
         file_desc(file_desc&& fd) noexcept;
         file_desc& operator=(file_desc&& fd) noexcept;
 
-        virtual ~file_desc() noexcept;
+        ~file_desc() noexcept;
 
         explicit operator bool() const noexcept;
 
+        const native_handle_t& native_handle() const noexcept;
+        
         template<typename T, std::size_t N>
         [[nodiscard]] bool write(const buffer_t<T, N>& buffer) noexcept;
 
+        template<typename T>
+        [[nodiscard]] bool write(T& value) noexcept;
+
         template<typename T, std::size_t N>
         [[nodiscard]] opt_buffer_t<T, N> read() const noexcept;
+
+        template<typename T>
+        [[nodiscard]] opt_t<T> read() const noexcept;
 
         template<typename... Args>
         [[nodiscard]] bool ioctl(const std::uint64_t request, Args&&... args) noexcept;
@@ -76,6 +84,21 @@ namespace fd
         }
     }
 
+    template<typename T>
+    [[nodiscard]] bool file_desc::write(T& value) noexcept
+    {
+        if (0 >= ::write(m_fd, std::addressof(value), sizeof(T)))
+        {
+            log_e("{}: Failed to write value with size: {}.", __FUNCTION__, sizeof(T));
+            return false;
+        }
+        else
+        {
+            log_i("{}: Value is successfully written.", __FUNCTION__);
+            return true;
+        }
+    }
+
     template<typename T, std::size_t N>
     opt_buffer_t<T, N> file_desc::read() const noexcept
     {
@@ -84,12 +107,29 @@ namespace fd
         if (0 >= ::read(m_fd, std::addressof(buffer), N * sizeof(T)))
         {
             log_e("{}: Failed to read buffer with size: {}", __FUNCTION__, N);
-            return opt_buff_null;
+            return opt_null;
         }
         else
         {
             log_i("{}: Buffer is successfully read.", __FUNCTION__);
             return { buffer };
+        }
+    }
+
+    template<typename T>
+    opt_t<T> file_desc::read() const noexcept
+    {
+        opt_t<T> value;
+
+        if (0 >= ::read(m_fd, std::addressof(value), sizeof(T)))
+        {
+            log_e("{}: Failed to read value with size: {}", __FUNCTION__, sizeof(T));
+            return opt_null;
+        }
+        else
+        {
+            log_i("{}: Value is successfully read.", __FUNCTION__);
+            return { value };
         }
     }
 

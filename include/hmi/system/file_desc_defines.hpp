@@ -9,10 +9,13 @@ namespace fd
     template<typename T, std::size_t N>
     using buffer_t = std::array<T, N>;
 
+    template <typename T>
+    using opt_t = std::optional<T>;
+
     template<typename T, std::size_t N>
     using opt_buffer_t = std::optional<buffer_t<T, N>>;
 
-    inline constexpr auto opt_buffer_null = std::nullopt;
+    inline constexpr auto opt_null = std::nullopt;
 
     namespace flag
     {
