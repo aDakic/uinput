@@ -13,7 +13,7 @@ namespace ui
         uinput(uinput&&)      = default;
         uinput& operator=(const uinput&) noexcept = default;
         uinput& operator=(uinput&&) noexcept = default;
-        virtual ~uinput() noexcept;
+        ~uinput() noexcept;
 
     protected:
         void set_info(std::string_view name, const std::uint16_t vendor_id, const std::uint16_t product_id,
