@@ -84,7 +84,7 @@ namespace fd
         if (0 >= ::read(m_fd, std::addressof(buffer), N * sizeof(T)))
         {
             log_e("{}: Failed to read buffer with size: {}", __FUNCTION__, N);
-            return std::nullopt;
+            return opt_buffer_null;
         }
         else
         {
