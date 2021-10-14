@@ -12,6 +12,8 @@ namespace fd
     template<typename T, std::size_t N>
     using opt_buffer_t = std::optional<buffer_t<T, N>>;
 
+    inline constexpr auto opt_buffer_null = std::nullopt;
+
     namespace flag
     {
         inline constexpr std::int32_t read_only  = O_RDONLY;
