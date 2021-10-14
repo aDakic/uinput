@@ -1,5 +1,6 @@
 ---
 BasedOnStyle: Google
+AccessModifierOffset: -4
 AlignConsecutiveMacros: 'true'
 AlignConsecutiveAssignments: 'true'
 AllowShortCaseLabelsOnASingleLine: 'true'

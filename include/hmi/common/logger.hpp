@@ -22,8 +22,7 @@ inline void log_i(Message msg, Args&&... args)
 {
     if constexpr (LOGGING)
     {
-        logger::log(fmt::color::medium_sea_green, logger::g_info, std::forward<Message>(msg),
-                    std::forward<Args>(args)...);
+        logger::log(fmt::color::medium_sea_green, logger::g_info, std::forward<Message>(msg), std::forward<Args>(args)...);
     }
 }
 
@@ -32,8 +31,7 @@ inline void log_w(Message msg, Args&&... args)
 {
     if constexpr (LOGGING)
     {
-        logger::log(fmt::color::orange, logger::g_warning, std::forward<Message>(msg),
-                    std::forward<Args>(args)...);
+        logger::log(fmt::color::orange, logger::g_warning, std::forward<Message>(msg), std::forward<Args>(args)...);
     }
 }
 
@@ -42,8 +40,7 @@ inline void log_e(Message msg, Args&&... args)
 {
     if constexpr (LOGGING)
     {
-        logger::log(fmt::color::red, logger::g_error, std::forward<Message>(msg),
-                    std::forward<Args>(args)...);
+        logger::log(fmt::color::red, logger::g_error, std::forward<Message>(msg), std::forward<Args>(args)...);
     }
 }
 
