@@ -1,9 +1,7 @@
 set(test_sources
     system/test_file_desc.cpp
     system/test_uinput.cpp
-    test_keyboard.cpp
-    test_mouse.cpp
-    test_touch.cpp)
+    )
 
 add_executable(test ${test_sources})
 
@@ -20,5 +18,5 @@ target_link_libraries(
   PUBLIC
   GTest::GTest
   GTest::Main
-  hmi::hmi
+  uinput::uinput
 )

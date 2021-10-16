@@ -15,10 +15,11 @@ namespace logger
         auto log = fmt::format("{}: {}\n", level, std::forward<Message>(msg));
         fmt::print(fg(color), log, std::forward<Args>(args)...);
     }
-};  // namespace logger
+}; // namespace logger
 
 template<typename Message, typename... Args>
-inline void log_i(Message msg, Args&&... args)
+inline void
+log_i(Message msg, Args&&... args)
 {
     if constexpr (LOGGING)
     {
@@ -27,7 +28,8 @@ inline void log_i(Message msg, Args&&... args)
 }
 
 template<typename Message, typename... Args>
-inline void log_w(Message msg, Args&&... args)
+inline void
+log_w(Message msg, Args&&... args)
 {
     if constexpr (LOGGING)
     {
@@ -36,7 +38,8 @@ inline void log_w(Message msg, Args&&... args)
 }
 
 template<typename Message, typename... Args>
-inline void log_e(Message msg, Args&&... args)
+inline void
+log_e(Message msg, Args&&... args)
 {
     if constexpr (LOGGING)
     {
@@ -45,7 +48,8 @@ inline void log_e(Message msg, Args&&... args)
 }
 
 template<typename T>
-inline const void* format_ptr(const T* p)
+inline const void*
+format_ptr(const T* p)
 {
     return fmt::ptr(p);
 }

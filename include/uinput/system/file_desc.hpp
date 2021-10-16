@@ -11,7 +11,7 @@
 #include <string_view>
 
 #include "file_desc_defines.hpp"
-#include "hmi/common/logger.hpp"
+#include "uinput/common/logger.hpp"
 
 namespace fd
 {
@@ -32,7 +32,7 @@ namespace fd
         explicit operator bool() const noexcept;
 
         const native_handle_t& native_handle() const noexcept;
-        
+
         template<typename T, std::size_t N>
         [[nodiscard]] bool write(const buffer_t<T, N>& buffer) noexcept;
 
@@ -62,7 +62,7 @@ namespace fd
         m_fd = open(name.data(), (flags | ...));
         if (-1 == m_fd)
         {
-            log_e("{}: Failed to open file descriptor.", __FUNCTION__);
+            log_e("{}: Failed to open file descriptor for {}.", __FUNCTION__, name.data());
             throw std::runtime_error{ "Failed to open file descriptor" };
         }
 
@@ -148,4 +148,4 @@ namespace fd
         }
     }
 
-}  // namespace fd
+} // namespace fd
