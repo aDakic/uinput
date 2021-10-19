@@ -6,7 +6,7 @@
 namespace ui
 {
     template<typename... Features>
-    struct uinput : Features::template type<uinput<Features...>>..., uinput_driver
+    struct uinput : uinput_driver, Features::template type<uinput<Features...>>...
     {
         uinput(std::string_view name, const std::uint16_t vendor_id, const std::uint16_t product_id,
                const std::uint16_t version)

@@ -10,7 +10,6 @@ endif()
 
 if(${PROJECT_NAME}_ENABLE_CLANG_FORMAT)
 file(GLOB_RECURSE ALL_SOURCE_FILES
-  ${PROJECT_SOURCE_DIR}/src/system/*.cpp
   ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/common/*.hpp
   ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/system/*.hpp
   ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}/feature/*.hpp
