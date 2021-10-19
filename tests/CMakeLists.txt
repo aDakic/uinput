@@ -17,6 +17,6 @@ target_link_libraries(
   test
   PUBLIC
   GTest::GTest
-  GTest::Main
+  #GTest::Main
   uinput::uinput
 )

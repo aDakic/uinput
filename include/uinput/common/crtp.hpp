@@ -20,4 +20,4 @@ namespace utils
         const T& get() const { return static_cast<const T&>(*this); }
     };
 
-}
+}  // namespace utils

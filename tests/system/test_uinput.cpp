@@ -112,3 +112,22 @@
 
 //     EXPECT_TRUE(dev.emit(right_click));
 // }
+
+int main()
+{
+   ui::uinput<
+            ui::keyboard_with_keys<ui::key_code::esc>,
+            ui::mouse_with_buttons<ui::btn_code::touch>,
+            ui::multi_touch_for_display<1920,1080>
+           > 
+            
+            touch("aca", 1,1,1);
+
+
+    getchar();
+
+    // touch.touch_press(1920/2, 1080/2, 0, 0);
+    // getchar();
+    // touch.touch_release(1920/2, 1080/2, 0);
+
+}

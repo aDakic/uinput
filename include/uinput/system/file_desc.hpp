@@ -148,4 +148,4 @@ namespace fd
         }
     }
 
-} // namespace fd
+}  // namespace fd

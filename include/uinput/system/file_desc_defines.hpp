@@ -24,5 +24,5 @@ namespace fd
         inline constexpr std::int32_t write_only = O_WRONLY;
         inline constexpr std::int32_t non_block  = O_NONBLOCK;
         inline constexpr std::int32_t no_delay   = O_NDELAY;
-    } // namespace flag
-} // namespace fd
+    }  // namespace flag
+}  // namespace fd

@@ -9,18 +9,18 @@ include(cmake/Tools.cmake)
 include(cmake/CPM.cmake)
 
 set(sources
-    src/system/file_desc.cpp
-    )
+    src/system/file_desc.cpp)
 
 set(headers
     include/${PROJECT_NAME}/common/logger.hpp
     include/${PROJECT_NAME}/system/file_desc_defines.hpp
     include/${PROJECT_NAME}/system/file_desc.hpp
-    include/${PROJECT_NAME}/uinput.hpp
+    include/${PROJECT_NAME}/feature/uinput_key_feature.hpp
+    include/${PROJECT_NAME}/feature/uinput_mouse_feature.hpp
+    include/${PROJECT_NAME}/feature/uinput_mtouch_feature.hpp
+    include/${PROJECT_NAME}/uinput_driver.hpp
     include/${PROJECT_NAME}/uinput_defines.hpp
-    include/${PROJECT_NAME}/uinput_key_feature.hpp
-    include/${PROJECT_NAME}/uinput_mouse_feature.hpp
-    )
+    include/${PROJECT_NAME}/uinput.hpp)
 
 add_library(${PROJECT_NAME} SHARED ${headers} ${sources})
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})

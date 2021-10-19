@@ -5,18 +5,15 @@
 
 namespace ui
 {
-    class uinput_base
+    class uinput_driver
     {
     public:
-        uinput_base()
-          : m_fd(uinput_path, fd::flag::write_only, fd::flag::non_block)
-        {
-        }
-        uinput_base(const uinput_base&) = default;
-        uinput_base(uinput_base&&)      = default;
-        uinput_base& operator=(const uinput_base&) noexcept = default;
-        uinput_base& operator=(uinput_base&&) noexcept = default;
-        ~uinput_base() noexcept
+        uinput_driver() : m_fd(uinput_path, fd::flag::write_only, fd::flag::non_block) { }
+        uinput_driver(const uinput_driver&) = default;
+        uinput_driver(uinput_driver&&)      = default;
+        uinput_driver& operator=(const uinput_driver&) noexcept = default;
+        uinput_driver& operator=(uinput_driver&&) noexcept = default;
+        ~uinput_driver() noexcept
         {
             if (!m_fd.ioctl(bit::dev_destroy))
             {
@@ -24,9 +21,7 @@ namespace ui
             }
         }
 
-        void set_info(std::string_view name,
-                      const std::uint16_t vendor_id,
-                      const std::uint16_t product_id,
+        void set_info(std::string_view name, const std::uint16_t vendor_id, const std::uint16_t product_id,
                       const std::uint16_t version) noexcept
         {
             m_setup.id.bustype = setup::virtual_bus;
@@ -87,4 +82,4 @@ namespace ui
             return (bits_ioctl(bits) && ...);
         }
     };
-} // namespace ui
+}  // namespace ui
