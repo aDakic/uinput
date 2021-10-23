@@ -97,7 +97,7 @@ namespace ui
              std::int32_t TouchHeight = 4096, std::int32_t MaxSlots = 10>
     struct multi_touch_for_display
     {
-        template<typename T>
-        using type = details::multi_touch_feature<T, ScreenWidth, ScreenHeight, TouchWidth, TouchHeight, MaxSlots>;
+        template<typename Driver>
+        using type = details::multi_touch_feature<Driver, ScreenWidth, ScreenHeight, TouchWidth, TouchHeight, MaxSlots>;
     };
 }  // namespace ui

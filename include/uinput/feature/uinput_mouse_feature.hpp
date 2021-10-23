@@ -63,7 +63,7 @@ namespace ui
     template<std::uint16_t... BtnCodes>
     struct mouse_with_buttons
     {
-        template<typename T>
-        using type = details::mouse_feature<T, BtnCodes...>;
+        template<typename Driver>
+        using type = details::mouse_feature<Driver, BtnCodes...>;
     };
 }  // namespace ui

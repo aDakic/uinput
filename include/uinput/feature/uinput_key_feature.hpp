@@ -41,7 +41,7 @@ namespace ui
     template<std::uint16_t... KeyCodes>
     struct keyboard_with_keys
     {
-        template<typename T>
-        using type = details::keyboard_feature<T, KeyCodes...>;
+        template<typename Driver>
+        using type = details::keyboard_feature<Driver, KeyCodes...>;
     };
 }  // namespace ui

@@ -20,12 +20,12 @@ namespace fd
     class file_desc
     {
     public:
-        file_desc(std::string_view name)
+        file_desc(const std::string_view path)
         {
-            m_fd = open(name.data(), (utils::enum_to_underlying(Flags) | ...));
+            m_fd = ::open(path.data(), (utils::to_underlying(Flags) | ...));
             if (-1 == m_fd)
             {
-                log_e("{}: Failed to open file descriptor for {}.", __FUNCTION__, name.data());
+                log_e("{}: Failed to open file descriptor for {}.", __FUNCTION__, path.data());
                 throw std::runtime_error{ "Failed to open file descriptor" };
             }
 
@@ -37,7 +37,7 @@ namespace fd
         {
             if (this != &other)
             {
-                int dup_fd = dup(other.m_fd);
+                int dup_fd = ::dup(other.m_fd);
                 if (-1 == dup_fd)
                 {
                     throw std::runtime_error{ "Failed to crate file descriptor duplicate.\n" };
