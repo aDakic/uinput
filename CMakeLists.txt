@@ -20,7 +20,8 @@ set(headers
     include/${PROJECT_NAME}/uinput.hpp)
 
 set(sources
-    src/system/file_desc.cpp)
+    src/system/file_desc.cpp
+    src/uinput_driver.cpp)
 
 add_library(${PROJECT_NAME} SHARED ${headers} ${sources})
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})

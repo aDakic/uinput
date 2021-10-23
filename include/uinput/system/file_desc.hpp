@@ -4,10 +4,6 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
-#include <array>
-#include <iostream>
-#include <optional>
-#include <stdexcept>
 #include <string_view>
 
 #include "file_desc_defines.hpp"

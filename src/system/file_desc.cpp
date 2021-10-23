@@ -1,3 +1,5 @@
+#include <stdexcept>
+
 #include "uinput/system/file_desc.hpp"
 
 namespace fd
@@ -59,4 +61,4 @@ namespace fd
     file_desc::operator bool() const noexcept { return -1 != m_fd; }
 
     const native_handle_t& file_desc::native_handle() const noexcept { return m_fd; }
-}
+}  // namespace fd

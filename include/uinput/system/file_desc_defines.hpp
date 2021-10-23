@@ -2,6 +2,9 @@
 
 #include <fcntl.h>
 
+#include <array>
+#include <optional>
+
 namespace fd
 {
     using native_handle_t = std::int32_t;
