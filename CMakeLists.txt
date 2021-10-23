@@ -19,7 +19,10 @@ set(headers
     include/${PROJECT_NAME}/uinput_defines.hpp
     include/${PROJECT_NAME}/uinput.hpp)
 
-add_library(${PROJECT_NAME} SHARED ${headers})
+set(sources
+    src/system/file_desc.cpp)
+
+add_library(${PROJECT_NAME} SHARED ${headers} ${sources})
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)

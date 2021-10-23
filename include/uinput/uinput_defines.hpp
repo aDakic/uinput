@@ -34,7 +34,7 @@ namespace ui
         inline constexpr std::uint16_t rel  = EV_REL;
         inline constexpr std::uint16_t abs  = EV_ABS;
     }  // namespace ev_type
-    
+
     namespace sync_code
     {
         inline constexpr std::uint16_t report    = SYN_REPORT;

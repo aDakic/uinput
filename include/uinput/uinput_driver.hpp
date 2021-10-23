@@ -8,7 +8,7 @@ namespace ui
     class uinput_driver
     {
     public:
-        uinput_driver() : m_fd(uinput_path) { }
+        uinput_driver() : m_fd(uinput_path, fd::write_only | fd::non_block) { }
         uinput_driver(const uinput_driver&) = default;
         uinput_driver(uinput_driver&&)      = default;
         uinput_driver& operator=(const uinput_driver&) noexcept = default;
@@ -17,7 +17,7 @@ namespace ui
         {
             if (!m_fd.ioctl(bit::dev_destroy))
             {
-                log_w("{}: The virtual device is not destroyed properly.", __FUNCTION__);
+                utils::log_w("{}: The virtual device is not destroyed properly.", __FUNCTION__);
             }
         }
 
@@ -73,7 +73,7 @@ namespace ui
     private:
         static constexpr const char* uinput_path = "/dev/uinput";
         setup_t m_setup{};
-        fd::file_desc<fd::flag::write_only, fd::flag::non_block> m_fd;
+        fd::file_desc m_fd;
 
         template<typename... Bits>
         bool set_bits(const int flag, const Bits... bits) noexcept
