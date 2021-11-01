@@ -2,6 +2,9 @@
 
 #include <linux/uinput.h>
 
+#include <cstddef>
+#include <array>
+
 namespace ui
 {
     using event_t = input_event;

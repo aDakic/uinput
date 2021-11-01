@@ -43,6 +43,6 @@ if(${PROJECT_NAME}_ENABLE_TRACE_LOGGING)
     target_link_libraries(${PROJECT_NAME} fmt)
 endif()
 
-if(${PROJECT_NAME}_ENABLE_UNIT_TESTING)
-        add_subdirectory(tests)
+if(${PROJECT_NAME}_ENABLE_EXAMPLES)
+        add_subdirectory(examples)
 endif()

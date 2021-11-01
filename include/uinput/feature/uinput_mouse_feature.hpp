@@ -6,7 +6,7 @@ namespace ui
 {
     namespace details
     {
-        template<typename Driver, std::uint16_t... BtnCodes>
+        template<typename Driver>
         struct mouse_feature
         {
             mouse_feature()
@@ -19,7 +19,7 @@ namespace ui
                 if (!error)
                     throw std::runtime_error{ "Failed to enable X, Y and WHEEL codes." };
 
-                error = get().set_key_codes(BtnCodes...);
+                error = get().set_key_codes(btn_code::left, btn_code::right, btn_code::middle);
                 if (!error)
                     throw std::runtime_error{ "Failed to enable Button codes." };
             }
@@ -60,10 +60,9 @@ namespace ui
         };
     }  // namespace details
 
-    template<std::uint16_t... BtnCodes>
-    struct mouse_with_buttons
+    struct mouse
     {
         template<typename Driver>
-        using type = details::mouse_feature<Driver, BtnCodes...>;
+        using type = details::mouse_feature<Driver>;
     };
 }  // namespace ui

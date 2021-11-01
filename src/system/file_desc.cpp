@@ -1,6 +1,6 @@
-#include <stdexcept>
-
 #include "uinput/system/file_desc.hpp"
+
+#include <stdexcept>
 
 namespace fd
 {
