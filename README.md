@@ -6,7 +6,7 @@ The uinput library utilizes features of the uinput kernel module which makes it 
 The central component of the library is `uinput` class which accept features as template parameters. The following features are currently supported:
 Name  | Description
 ------------- | -------------
-keyboard_with_keys`<std::uint16_t... KeyCodes>`  | Two `T` can be added
+keyboard_with_keys`<std::uint16_t... KeyCodes>`  | Provides keyboard_press and keyboard_relase for the keycodes defined as KeyCodes..., all supported keycodes are defined in [uinput_defines.hpp](https://github.com/aDakic/uinput/blob/main/include/uinput/uinput_defines.hpp#L48).
 
 
 ![Alt text](.demo/gif.gif)
