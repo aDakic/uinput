@@ -2,8 +2,8 @@
 
 #include <linux/uinput.h>
 
-#include <cstddef>
 #include <array>
+#include <cstddef>
 
 namespace ui
 {

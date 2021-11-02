@@ -1,17 +1,19 @@
-#include "uinput/uinput.hpp"
 #include <chrono>
 #include <thread>
 
+#include "uinput/uinput.hpp"
+
+using namespace ui;
+using namespace std::chrono_literals;
+
 int main()
 {
-    using namespace ui;
-    using namespace std::chrono_literals;
     using touch_t = uinput<multi_touch_for_display<1920, 1200>>;
 
-    touch_t small_touch { "Small touch", 0xACAD, 0xDEDA, 0x01 };
+    touch_t small_touch{ "Small touch", 0xACAD, 0xDEDA, 0x01 };
 
     constexpr std::int32_t slot = 1;
-    std::int32_t track_id = 0;
+    std::int32_t track_id       = 0;
 
     std::this_thread::sleep_for(150ms);
     small_touch.touch_press(200, 300, track_id++, slot);

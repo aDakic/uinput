@@ -1,11 +1,12 @@
 #include "uinput/uinput.hpp"
 
+using namespace ui;
+
 int main()
 {
-    using namespace ui;
     using mouse_t = uinput<mouse>;
 
-    mouse_t small_mouse { "Small mouse", 0xACAD, 0xDEDA, 0x01};
+    mouse_t small_mouse{ "Small mouse", 0xACAD, 0xDEDA, 0x01 };
 
     small_mouse.mouse_click_left();
     small_mouse.mouse_click_right();

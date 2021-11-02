@@ -12,3 +12,8 @@ set(touch_example_src touch_example.cpp)
 add_executable(touch_example ${touch_example_src})
 target_compile_features(touch_example PUBLIC cxx_std_17)
 target_link_libraries(touch_example PUBLIC uinput::uinput)
+
+set(driver_example_src driver_example.cpp)
+add_executable(driver_example ${driver_example_src})
+target_compile_features(driver_example PUBLIC cxx_std_17)
+target_link_libraries(driver_example PUBLIC uinput::uinput)
