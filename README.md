@@ -10,6 +10,9 @@ keyboard_with_keys<`uint16_t... KeyCodes`>  | Provides keyboard_press and keyboa
 mouse | Provides mouse_click_left, mouse_click_right, mouse_click_middle, mouse_scroll_up, mouse_scroll_down and mouse_move(x,y) where x and y are relative coordinates. 
 multi_touch_for_display<`int32_t ScreenWidth,int32_t ScreenHeight, int32_t TouchWidth, int32_t TouchHeight, int32_t MaxSlots`> | Provides touch_press, touch_release and touch_move for the touch screen defined by parameters: ScreenWidth - screen width in px, ScreenHeight - screen height in px, TouchWidth - touch width in mm, TouchHeight - height in mm and MaxSlots - max slots. For TouchWidth, TouchHeight and MaxSlots default values are provided. 
 
+
+`uinput` uses `uinput_driver` to perform low-level communication with the kernel. The user could use uinput_driver to create a custom device: [uinput_driver](#driver)
+
 ## Examples
 ### Keyboard
 In this example, the uinput is defined with keyboard features and support for F1, F2 and F3 keycodes.
@@ -101,7 +104,7 @@ dev.key_release(key_code::space);
 dev.mouse_click_left();
 
 ```
-## UInput driver
+## Driver
 The uinput_driver can be used for defining a custom device. [mouse_movements](https://www.kernel.org/doc/html/v4.12/input/uinput.html#mouse-movements) C example:
 ```c
 #include <linux/uinput.h>
