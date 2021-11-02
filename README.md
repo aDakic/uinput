@@ -13,7 +13,6 @@ multi_touch_for_display<`int32_t ScreenWidth,int32_t ScreenHeight, int32_t Touch
 
 `uinput` uses `uinput_driver` to perform low-level communication with the kernel. The user could use uinput_driver to create a custom device: [uinput_driver](#driver)
 
-## Examples
 ### Keyboard
 In this example, the uinput is defined with keyboard features and support for F1, F2 and F3 keycodes.
 "Small keyboard", 0xACAD, 0xDEDA and 0x01 are device name, vendor identifier, product identifier and version, respectively. 
@@ -105,78 +104,7 @@ dev.mouse_click_left();
 
 ```
 ## Driver
-The uinput_driver can be used for defining a custom device. [mouse_movements](https://www.kernel.org/doc/html/v4.12/input/uinput.html#mouse-movements) C example:
-```c
-#include <linux/uinput.h>
-
-void emit(int fd, int type, int code, int val)
-{
-   struct input_event ie;
-
-   ie.type = type;
-   ie.code = code;
-   ie.value = val;
-   /* timestamp values below are ignored */
-   ie.time.tv_sec = 0;
-   ie.time.tv_usec = 0;
-
-   write(fd, &ie, sizeof(ie));
-}
-
-int main(void)
-{
-   struct uinput_setup usetup;
-   int i = 50;
-
-   int fd = open("/dev/uinput", O_WRONLY | O_NONBLOCK);
-
-   /* enable mouse button left and relative events */
-   ioctl(fd, UI_SET_EVBIT, EV_KEY);
-   ioctl(fd, UI_SET_KEYBIT, BTN_LEFT);
-
-   ioctl(fd, UI_SET_EVBIT, EV_REL);
-   ioctl(fd, UI_SET_RELBIT, REL_X);
-   ioctl(fd, UI_SET_RELBIT, REL_Y);
-
-   memset(&usetup, 0, sizeof(usetup));
-   usetup.id.bustype = BUS_USB;
-   usetup.id.vendor = 0x1234; /* sample vendor */
-   usetup.id.product = 0x5678; /* sample product */
-   strcpy(usetup.name, "Example device");
-
-   ioctl(fd, UI_DEV_SETUP, &usetup);
-   ioctl(fd, UI_DEV_CREATE);
-
-   /*
-    * On UI_DEV_CREATE the kernel will create the device node for this
-    * device. We are inserting a pause here so that userspace has time
-    * to detect, initialize the new device, and can start listening to
-    * the event, otherwise it will not notice the event we are about
-    * to send. This pause is only needed in our example code!
-    */
-   sleep(1);
-
-   /* Move the mouse diagonally, 5 units per axis */
-   while (i--) {
-      emit(fd, EV_REL, REL_X, 5);
-      emit(fd, EV_REL, REL_Y, 5);
-      emit(fd, EV_SYN, SYN_REPORT, 0);
-      usleep(15000);
-   }
-
-   /*
-    * Give userspace some time to read the events before we destroy the
-    * device with UI_DEV_DESTOY.
-    */
-   sleep(1);
-
-   ioctl(fd, UI_DEV_DESTROY);
-   close(fd);
-
-   return 0;
-}
-```
-Rewritten with uinput_driver will look like:
+`uinput_driver` represents abstraction around file descriptor (/dev/uinput) and its control with ioctl and write system calls. [mouse_movements](https://www.kernel.org/doc/html/v4.12/input/uinput.html#mouse-movements) C example can be simplified with uinput_driver in the following way:
 ```cpp
 #include <chrono>
 #include <thread>
