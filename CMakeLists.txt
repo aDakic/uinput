@@ -8,6 +8,8 @@ include(cmake/StandardSettings.cmake)
 include(cmake/Tools.cmake)
 include(cmake/CPM.cmake)
 
+set (CMAKE_CXX_STANDARD 17)
+
 set(headers
     include/${PROJECT_NAME}/common/logger.hpp
     include/${PROJECT_NAME}/system/file_desc_defines.hpp
