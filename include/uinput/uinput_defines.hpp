@@ -5,6 +5,10 @@
 #include <array>
 #include <cstddef>
 
+#include <cstdint>
+#include <stdexcept>
+#include <limits>
+
 namespace ui
 {
     using event_t = input_event;
